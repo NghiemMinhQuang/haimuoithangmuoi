@@ -28,45 +28,55 @@
             position: relative;
         }
 
-        /* Khung Thiệp Chúc Mừng */
+        /* Khung Thiệp Hình Chữ Nhật Ngang với Viền Họa Tiết Lượn Sóng Cổ Điển */
         .card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 45px 35px;
-            border-radius: 40px;
-            box-shadow: 0 20px 40px rgba(150, 20, 60, 0.25);
+            background: #fbf9f1;
+            padding: 45px 40px;
             text-align: center;
             max-width: 680px;
             width: 100%;
             z-index: 10;
             margin-bottom: 30px;
-            border: 3px solid rgba(255, 255, 255, 0.7);
-            animation: morphSquare 8s ease-in-out infinite alternate;
-            transition: transform 0.3s ease;
+            position: relative;
+            box-shadow: 0 18px 40px rgba(120, 80, 50, 0.22);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            
+            /* Tạo viền lượn sóng mềm mại xung quanh khung thiệp chữ nhật */
+            border-radius: 30px;
+            outline: 3px dashed #d4c5a9;
+            outline-offset: -12px;
+            border: 2px solid #e6dcc6;
+        }
+
+        /* Họa tiết góc lượn sóng / nếp gợn nghệ thuật */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            right: 6px;
+            bottom: 6px;
+            border: 2px solid rgba(212, 197, 169, 0.4);
+            border-radius: 24px;
+            pointer-events: none;
         }
 
         .card:hover {
-            transform: scale(1.01);
+            transform: translateY(-5px);
+            box-shadow: 0 22px 45px rgba(120, 80, 50, 0.28);
         }
 
-        @keyframes morphSquare {
-            0% {
-                border-radius: 40px;
-            }
-            50% {
-                border-radius: 60px 30px 60px 30px / 40px 60px 40px 60px;
-            }
-            100% {
-                border-radius: 35px 55px 35px 55px / 55px 35px 55px 35px;
-            }
+        .card-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
         }
 
         .heart {
-            font-size: 50px;
+            font-size: 48px;
             animation: beat 0.9s infinite alternate;
             display: inline-block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         @keyframes beat {
@@ -76,21 +86,21 @@
         /* Tiêu đề viết tay nghệ thuật */
         h1 {
             font-family: 'Great Vibes', cursive;
-            color: #d81b60;
-            font-size: 52px;
+            color: #b54565;
+            font-size: 54px;
             margin-bottom: 12px;
             font-weight: normal;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.06);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
             line-height: 1.1;
         }
 
         /* Nội dung lời chúc */
         p.message {
             font-family: 'Montserrat', sans-serif;
-            color: #4a4a4a;
+            color: #5c5346;
             font-size: 16px;
             line-height: 1.8;
-            padding: 0 10px;
+            padding: 0 15px;
             font-weight: 500;
         }
 
@@ -98,37 +108,38 @@
         .gallery {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 18px;
             max-width: 1000px;
             width: 100%;
             z-index: 10;
             flex-wrap: wrap;
         }
 
-        /* Khung ảnh HÌNH CHỮ NHẬT NGANG TO HƠN (Tỷ lệ 16:9) */
+        /* Khung ảnh Hình Chữ Nhật Ngang */
         .photo-frame {
             position: relative;
-            background: white;
-            padding: 8px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            background: #fff;
+            padding: 1px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
             overflow: hidden;
-            width: 220px;      /* Chiều rộng to hơn */
-            height: 165px;     /* Chiều cao hình chữ nhật ngang */
+            width: 210px;
+            height: 120px;
             flex-shrink: 0;
+            border: 1px solid #e6dcc6;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .photo-frame:hover {
             transform: scale(1.08) translateY(-6px);
-            box-shadow: 0 15px 30px rgba(194, 24, 91, 0.35);
+            box-shadow: 0 15px 30px rgba(181, 69, 101, 0.3);
         }
 
         .photo-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 8px;
         }
 
         /* Hiệu ứng Hoa Rơi */
@@ -156,14 +167,17 @@
 </head>
 <body>
 
-    <!-- Thiệp Chúc Mừng -->
+    <!-- Thiệp Hình Chữ Nhật Ngang Giấy Ngả Vàng Viền Lượn Sóng -->
     <div class="card">
-        <div class="heart">💖</div>
-        <h1>Happy Women's Day 20/10</h1>
-        <p class="message">
-            Chúc một nửa thế giới luôn xinh đẹp, rạng rỡ và tràn ngập niềm vui.<br>
-            Cảm ơn vì đã luôn mang lại sự dịu dàng và những điều tuyệt vời nhất! 🌸
-        </p>
+        <div class="card-content">
+            <div class="heart">💖</div>
+            <h1>Happy Women's Day 20/10</h1>
+            <p class="message">
+                Nhân dịp Ngày phụ nữ Việt Nam, thực ra đây vốn chẳng nên là ngày tôn vinh người phụ nữ, bởi vì phụ nữ vốn nên nhận được sự yêu thương, tôn vinh và đồng cảm trong suốt mỗi ngày sống trên cuộc đời này bởi những đóng góp cho xã hội và sự hy sinh của họ. Và nhân dịp 20/10 năm nay, tụi con trai trong nhóm này sẽ không chúc những điều sáo rỗng (xinh đẹp, thành công, nhiều tiền, học giỏi, “không vướng vòng lao lý” - câu này của Dương Hoàng) mà chỉ có 1 câu thôi: <br>
+               <em> “Muốn nói gì thì hãy nói, muốn làm gì thì hãy làm, hãy sống tốt mỗi ngày. Bởi vì nếu có một ngày vận mệnh không chiều lòng chúng ta, nó sẽ không cho chúng ta dù chỉ một khắc để lựa chọn” </em> <br>
+		Cảm ơn <strong>Thuỳ Dương, Bảo Ngân, Ngọc Mai, Ngọc Anh</strong> vì đã luôn là những người bạn đáng quý của anh em btao. Mong rằng chúng ta sẽ có thể đồng hành cùng nhau lâu hơn nữa ... 💐💐💐
+            </p>
+        </div>
     </div>
 
     <!-- Bộ sưu tập 4 Ảnh Hình Chữ Nhật Ngang -->
