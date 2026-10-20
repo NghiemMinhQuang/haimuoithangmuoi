@@ -37,7 +37,7 @@
             border-radius: 40px;
             box-shadow: 0 20px 40px rgba(150, 20, 60, 0.25);
             text-align: center;
-            max-width: 620px;
+            max-width: 680px;
             width: 100%;
             z-index: 10;
             margin-bottom: 30px;
@@ -73,7 +73,7 @@
             to { transform: scale(1.25); }
         }
 
-        /* Tiêu đề dùng phông chữ viết tay nghệ thuật, bay bổng */
+        /* Tiêu đề viết tay nghệ thuật */
         h1 {
             font-family: 'Great Vibes', cursive;
             color: #d81b60;
@@ -84,7 +84,7 @@
             line-height: 1.1;
         }
 
-        /* Nội dung lời chúc dùng phông chữ hiện đại, rõ nét và trang nhã */
+        /* Nội dung lời chúc */
         p.message {
             font-family: 'Montserrat', sans-serif;
             color: #4a4a4a;
@@ -94,33 +94,34 @@
             font-weight: 500;
         }
 
-        /* Khu vực 4 ảnh nằm cùng một hàng ngang */
+        /* Khu vực 4 ảnh nằm trên một hàng ngang */
         .gallery {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            max-width: 620px;
+            gap: 20px;
+            max-width: 1000px;
             width: 100%;
             z-index: 10;
             flex-wrap: wrap;
         }
 
+        /* Khung ảnh HÌNH CHỮ NHẬT NGANG TO HƠN (Tỷ lệ 16:9) */
         .photo-frame {
             position: relative;
             background: white;
             padding: 8px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
             overflow: hidden;
-            width: 130px;
-            height: 130px;
+            width: 220px;      /* Chiều rộng to hơn */
+            height: 165px;     /* Chiều cao hình chữ nhật ngang */
             flex-shrink: 0;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .photo-frame:hover {
-            transform: scale(1.08) translateY(-5px);
-            box-shadow: 0 12px 25px rgba(194, 24, 91, 0.3);
+            transform: scale(1.08) translateY(-6px);
+            box-shadow: 0 15px 30px rgba(194, 24, 91, 0.35);
         }
 
         .photo-frame img {
@@ -165,19 +166,19 @@
         </p>
     </div>
 
-    <!-- Bộ sưu tập 4 Ảnh nằm trên một hàng -->
+    <!-- Bộ sưu tập 4 Ảnh Hình Chữ Nhật Ngang -->
     <div class="gallery">
         <div class="photo-frame">
-            <img src="https://picsum.photos/300/300?random=1" alt="Ảnh 1">
+            <img src="anhnhom1.jpg" alt="Ảnh 1">
         </div>
         <div class="photo-frame">
-            <img src="https://picsum.photos/300/300?random=2" alt="Ảnh 2">
+            <img src="anhnhom2.jpg" alt="Ảnh 2">
         </div>
         <div class="photo-frame">
-            <img src="https://picsum.photos/300/300?random=3" alt="Ảnh 3">
+            <img src="anhnhom3.jpg" alt="Ảnh 3">
         </div>
         <div class="photo-frame">
-            <img src="https://picsum.photos/300/300?random=4" alt="Ảnh 4">
+            <img src="anhnhom4.jpg" alt="Ảnh 4">
         </div>
     </div>
 
