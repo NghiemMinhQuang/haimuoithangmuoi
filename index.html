@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10!</title>
-    <!-- Nhúng Google Fonts tiếng Việt: Phông chữ viết tay nghệ thuật và phông chữ hiện đại -->
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Nhúng Google Fonts tiếng Việt -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Thư viện pháo hoa canvas-confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
@@ -26,44 +26,60 @@
             padding: 20px;
             overflow-x: hidden;
             position: relative;
+            
+            animation: pageFadeIn 1.2s ease-out forwards;
         }
 
-        /* Khung Thiệp Hình Chữ Nhật Ngang với Viền Họa Tiết Lượn Sóng Cổ Điển */
+        @keyframes pageFadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Thiệp Hình Chữ Nhật Ngang Giấy Ngả Vàng Cổ Điển */
         .card {
-            background: #fbf9f1;
-            padding: 45px 40px;
+            background: linear-gradient(145deg, #fbf7ee 0%, #f0e6d2 100%);
+            padding: 45px 50px;
             text-align: center;
             max-width: 680px;
             width: 100%;
             z-index: 10;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             position: relative;
-            box-shadow: 0 18px 40px rgba(120, 80, 50, 0.22);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            
-            /* Tạo viền lượn sóng mềm mại xung quanh khung thiệp chữ nhật */
-            border-radius: 30px;
-            outline: 3px dashed #d4c5a9;
-            outline-offset: -12px;
-            border: 2px solid #e6dcc6;
+            box-shadow: 0 20px 45px rgba(120, 80, 50, 0.25);
+            color: #3a2e1d;
+            border-radius: 20px;
+            border: 2px solid #d4c5a9;
+
+            animation: cardSlideUp 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transition: transform 1s ease, box-shadow 0.3s ease;
         }
 
-        /* Họa tiết góc lượn sóng / nếp gợn nghệ thuật */
+        @keyframes cardSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .card::before {
             content: '';
             position: absolute;
-            top: 6px;
-            left: 6px;
-            right: 6px;
-            bottom: 6px;
-            border: 2px solid rgba(212, 197, 169, 0.4);
-            border-radius: 24px;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px dashed #b5a482;
+            border-radius: 14px;
             pointer-events: none;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 22px 45px rgba(120, 80, 50, 0.28);
+            transform: translateY(-6px);
+            box-shadow: 0 25px 50px rgba(120, 80, 50, 0.3);
         }
 
         .card-content {
@@ -76,70 +92,94 @@
             font-size: 48px;
             animation: beat 0.9s infinite alternate;
             display: inline-block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         @keyframes beat {
             to { transform: scale(1.25); }
         }
 
-        /* Tiêu đề viết tay nghệ thuật */
         h1 {
             font-family: 'Great Vibes', cursive;
             color: #b54565;
-            font-size: 54px;
-            margin-bottom: 12px;
+            font-size: 56px;
+            margin-bottom: 4px;
             font-weight: normal;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
             line-height: 1.1;
         }
 
-        /* Nội dung lời chúc */
+        .sub-title {
+            font-family: 'Great Vibes', cursive;
+            color: #9e3955;
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
         p.message {
             font-family: 'Montserrat', sans-serif;
             color: #5c5346;
-            font-size: 16px;
+            font-size: 15px;
             line-height: 1.8;
-            padding: 0 15px;
+            padding: 0 10px;
             font-weight: 500;
         }
 
-        /* Khu vực 4 ảnh nằm trên một hàng ngang */
+        /* Khay chứa 5 ảnh nằm ngang */
         .gallery {
             display: flex;
             justify-content: center;
-            gap: 18px;
-            max-width: 1000px;
+            gap: 12px;
+            max-width: 1050px;
             width: 100%;
             z-index: 10;
-            flex-wrap: wrap;
+            flex-wrap: nowrap; /* Giữ tất cả ảnh trên cùng một hàng ngang */
         }
 
-        /* Khung ảnh Hình Chữ Nhật Ngang */
+        /* Khung ảnh to hơn, padding 1px, bo góc 10px đúng yêu cầu */
         .photo-frame {
             position: relative;
-            background: #fff;
-            padding: 1px;
-            border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            background: #ffffff;
+            padding: 1px;               /* Padding đúng 1px như yêu cầu */
+            border-radius: 10px;        /* Độ cong bo góc 10px như yêu cầu */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
             overflow: hidden;
-            width: 210px;
-            height: 120px;
+            width: 190px;               /* Kích thước ảnh to hơn */
+            height: 110px;              /* Kích thước ảnh to hơn */
             flex-shrink: 0;
-            border: 1px solid #e6dcc6;
+            border: 1px solid #d4c5a9;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+            opacity: 0;
+            animation: photoAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+
+        @keyframes photoAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .photo-frame:nth-child(1) { animation-delay: 2.0s; }
+        .photo-frame:nth-child(2) { animation-delay: 2.2s; }
+        .photo-frame:nth-child(3) { animation-delay: 2.4s; }
+        .photo-frame:nth-child(4) { animation-delay: 2.6s; }
+        .photo-frame:nth-child(5) { animation-delay: 2.8s; }
 
         .photo-frame:hover {
             transform: scale(1.08) translateY(-6px);
-            box-shadow: 0 15px 30px rgba(181, 69, 101, 0.3);
+            box-shadow: 0 16px 32px rgba(181, 69, 101, 0.3);
         }
 
         .photo-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 8px;
+            border-radius: 9px; /* Khớp nhẹ với bo góc khung ngoài */
         }
 
         /* Hiệu ứng Hoa Rơi */
@@ -180,7 +220,8 @@
         </div>
     </div>
 
-    <!-- Bộ sưu tập 4 Ảnh Hình Chữ Nhật Ngang -->
+
+    <!-- Bộ sưu tập 5 Ảnh To Hơn, Cùng 1 Hàng Ngang -->
     <div class="gallery">
         <div class="photo-frame">
             <img src="anhnhom1.jpg" alt="Ảnh 1">
@@ -193,6 +234,9 @@
         </div>
         <div class="photo-frame">
             <img src="anhnhom4.jpg" alt="Ảnh 4">
+        </div>
+        <div class="photo-frame">
+            <img src="anhnhom5.jpg" alt="Ảnh 5">
         </div>
     </div>
 
@@ -220,21 +264,21 @@
 
         setInterval(createFlower, 300);
 
-        // --- 2. Tự động bắn pháo hoa ngay khi vừa mở trang ---
+        // --- 2. Bắn pháo hoa rực rỡ ngay khi trang tải xong ---
         window.onload = function() {
             var duration = 2.5 * 1000;
             var end = Date.now() + duration;
 
             (function frame() {
                 confetti({
-                    particleCount: 5,
+                    particleCount: 6,
                     angle: 60,
                     spread: 55,
                     origin: { x: 0 },
                     colors: ['#ff4081', '#ffd54f', '#ffffff']
                 });
                 confetti({
-                    particleCount: 5,
+                    particleCount: 6,
                     angle: 120,
                     spread: 55,
                     origin: { x: 1 },
