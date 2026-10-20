@@ -27,6 +27,7 @@
             overflow-x: hidden;
             position: relative;
             
+            /* Hiệu ứng mờ dần toàn trang chống giật lag */
             animation: pageFadeIn 1.2s ease-out forwards;
         }
 
@@ -50,8 +51,9 @@
             border-radius: 20px;
             border: 2px solid #d4c5a9;
 
+            /* Tốc độ trượt hiện thiệp (sửa thời gian ở đây nếu muốn nhanh/chậm hơn) */
             animation: cardSlideUp 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            transition: transform 1s ease, box-shadow 0.3s ease;
+            transition: transform 2s ease, box-shadow 0.3s ease;
         }
 
         @keyframes cardSlideUp {
@@ -65,6 +67,7 @@
             }
         }
 
+        /* Viền nét đứt vintage bên trong thiệp */
         .card::before {
             content: '';
             position: absolute;
@@ -124,7 +127,7 @@
             font-weight: 500;
         }
 
-        /* Khay chứa 5 ảnh nằm ngang */
+        /* Khay chứa 5 ảnh (Mặc định máy tính nằm trên 1 hàng) */
         .gallery {
             display: flex;
             justify-content: center;
@@ -132,19 +135,19 @@
             max-width: 1050px;
             width: 100%;
             z-index: 10;
-            flex-wrap: nowrap; /* Giữ tất cả ảnh trên cùng một hàng ngang */
+            flex-wrap: nowrap;
         }
 
-        /* Khung ảnh to hơn, padding 1px, bo góc 10px đúng yêu cầu */
+        /* Khung ảnh: padding 1px, bo góc 10px, kích thước 190px x 110px */
         .photo-frame {
             position: relative;
             background: #ffffff;
-            padding: 1px;               /* Padding đúng 1px như yêu cầu */
-            border-radius: 10px;        /* Độ cong bo góc 10px như yêu cầu */
+            padding: 1px;
+            border-radius: 10px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
             overflow: hidden;
-            width: 190px;               /* Kích thước ảnh to hơn */
-            height: 110px;              /* Kích thước ảnh to hơn */
+            width: 190px;
+            height: 110px;
             flex-shrink: 0;
             border: 1px solid #d4c5a9;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -179,7 +182,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 9px; /* Khớp nhẹ với bo góc khung ngoài */
+            border-radius: 9px;
         }
 
         /* Hiệu ứng Hoa Rơi */
@@ -203,6 +206,36 @@
                 opacity: 0.2;
             }
         }
+
+        /* RESPONSIVE: Tự động tối ưu giao diện trên Màn hình Điện thoại (dưới 768px) */
+        @media (max-width: 768px) {
+            .gallery {
+                flex-wrap: wrap; /* Cho phép tự động xuống dòng */
+                gap: 10px;
+            }
+
+            .photo-frame {
+                width: calc(50% - 10px); /* Tự căn chỉnh 2 ảnh trên một hàng */
+                height: 110px;
+            }
+
+            .card {
+                padding: 30px 20px;
+                margin-bottom: 20px;
+            }
+
+            h1 {
+                font-size: 42px;
+            }
+
+            .sub-title {
+                font-size: 30px;
+            }
+
+            p.message {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -213,15 +246,15 @@
             <div class="heart">💖</div>
             <h1>Happy Women's Day 20/10</h1>
             <p class="message">
-                Nhân dịp Ngày phụ nữ Việt Nam, thực ra đây vốn chẳng nên là ngày tôn vinh người phụ nữ, bởi vì phụ nữ vốn nên nhận được sự yêu thương, tôn vinh và đồng cảm trong suốt mỗi ngày sống trên cuộc đời này bởi những đóng góp cho xã hội và sự hy sinh của họ. Và nhân dịp 20/10 năm nay, tụi con trai trong nhóm này sẽ không chúc những điều sáo rỗng (xinh đẹp, thành công, nhiều tiền, học giỏi, “không vướng vòng lao lý” - câu này của Dương Hoàng) mà chỉ có 1 câu thôi: <br>
-               <em> “Muốn nói gì thì hãy nói, muốn làm gì thì hãy làm, hãy sống tốt mỗi ngày. Bởi vì nếu có một ngày vận mệnh không chiều lòng chúng ta, nó sẽ không cho chúng ta dù chỉ một khắc để lựa chọn” </em> <br>
+                Nhân dịp Ngày phụ nữ Việt Nam... thực ra đây vốn chẳng cần là ngày tôn vinh người phụ nữ, bởi vì phụ nữ xứng đáng được trân trọng, yêu thương và thấu hiểu trong từng khoảnh khắc của cuộc đời bởi những đóng góp cho xã hội và sự hy sinh của họ. Và nhân dịp 20/10 năm nay, anh em btao sẽ không chúc những điều sáo rỗng (xinh đẹp, thành công, nhiều tiền, học giỏi, “không vướng vòng lao lý” - câu này của Dương Hoàng) mà chỉ có 1 câu thôi: <br>
+               <em> “Muốn nói gì thì hãy nói, muốn làm gì thì cứ làm, hãy sống tốt mỗi ngày. Bởi vì nếu có một ngày vận mệnh không chiều lòng chúng ta, nó sẽ không cho chúng ta dù chỉ một khắc để lựa chọn” </em> <br>
 		Cảm ơn <strong>Thuỳ Dương, Bảo Ngân, Ngọc Mai, Ngọc Anh</strong> vì đã luôn là những người bạn đáng quý của anh em btao. Mong rằng chúng ta sẽ có thể đồng hành cùng nhau lâu hơn nữa ... 💐💐💐
             </p>
         </div>
     </div>
 
 
-    <!-- Bộ sưu tập 5 Ảnh To Hơn, Cùng 1 Hàng Ngang -->
+    <!-- Bộ sưu tập 5 Ảnh -->
     <div class="gallery">
         <div class="photo-frame">
             <img src="anhnhom1.jpg" alt="Ảnh 1">
@@ -264,7 +297,7 @@
 
         setInterval(createFlower, 300);
 
-        // --- 2. Bắn pháo hoa rực rỡ ngay khi trang tải xong ---
+        // --- 2. Bắn pháo hoa rực rỡ khi mở trang ---
         window.onload = function() {
             var duration = 2.5 * 1000;
             var end = Date.now() + duration;
