@@ -26,14 +26,121 @@
             padding: 20px;
             overflow-x: hidden;
             position: relative;
-            
-            /* Hiệu ứng mờ dần toàn trang chống giật lag */
-            animation: pageFadeIn 1.2s ease-out forwards;
         }
 
-        @keyframes pageFadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        /* --- PHẦN 1: GIAO DIỆN PHONG BÌ THƯ BAN ĐẦU --- */
+        .envelope-container {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            cursor: pointer;
+            z-index: 20;
+            transition: transform 0.4s ease, opacity 0.6s ease;
+            filter: drop-shadow(0 15px 30px rgba(120, 80, 50, 0.25));
+        }
+
+        .envelope-container:hover {
+            transform: scale(1.04);
+        }
+
+        /* Thân phong bì */
+        .envelope-body {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 160px;
+            background: #e8dcc4;
+            border-radius: 0 0 12px 12px;
+            border: 2px solid #d4c5a9;
+            border-top: none;
+        }
+
+        /* Nắp phong bì */
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 110px solid #dcd0b8;
+            transform-origin: top;
+            transition: transform 0.6s ease-in-out;
+            z-index: 22;
+        }
+
+        /* Con dấu trái tim phong bì */
+        .envelope-seal {
+            position: absolute;
+            top: 75px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 46px;
+            height: 46px;
+            background: #b54565;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 23;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope-container:hover .envelope-seal {
+            transform: translateX(-50%) scale(1.1);
+        }
+
+        .envelope-instruction {
+            position: absolute;
+            bottom: -40px;
+            width: 100%;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* --- PHẦN 2: KHU VỰC THIỆP & ẢNH (ẨN LÚC ĐẦU, HIỆN KHI BẤM MỞ THƯ) --- */
+        .main-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(40px) scale(0.95);
+            /* Chỉnh tốc độ hiện thiệp mượt mà trong 1.2s tại đây */
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            position: absolute;
+            width: 100%;
+            max-width: 1050px;
+            padding: 0 20px;
+        }
+
+        /* Trạng thái sau khi mở thư */
+        .envelope-container.open {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-80px) scale(0.8);
+            position: absolute;
+        }
+
+        .envelope-container.open + .main-content-wrapper {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+            position: relative;
         }
 
         /* Thiệp Hình Chữ Nhật Ngang Giấy Ngả Vàng Cổ Điển */
@@ -50,21 +157,7 @@
             color: #3a2e1d;
             border-radius: 20px;
             border: 2px solid #d4c5a9;
-
-            /* Tốc độ trượt hiện thiệp (sửa thời gian ở đây nếu muốn nhanh/chậm hơn) */
-            animation: cardSlideUp 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            transition: transform 2s ease, box-shadow 0.3s ease;
-        }
-
-        @keyframes cardSlideUp {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         /* Viền nét đứt vintage bên trong thiệp */
@@ -111,13 +204,6 @@
             line-height: 1.1;
         }
 
-        .sub-title {
-            font-family: 'Great Vibes', cursive;
-            color: #9e3955;
-            font-size: 38px;
-            margin-bottom: 12px;
-        }
-
         p.message {
             font-family: 'Montserrat', sans-serif;
             color: #5c5346;
@@ -150,16 +236,21 @@
             height: 110px;
             flex-shrink: 0;
             border: 1px solid #d4c5a9;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 1s ease, box-shadow 1s ease;
 
+            /* Trạng thái ẩn ban đầu để chờ kích hoạt hiệu ứng hiện */
             opacity: 0;
+        }
+
+        /* Animation xuất hiện từ từ cho từng bức ảnh */
+        .envelope-container.open + .main-content-wrapper .photo-frame {
             animation: photoAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         @keyframes photoAppear {
             0% {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(25px);
             }
             100% {
                 opacity: 1;
@@ -167,11 +258,12 @@
             }
         }
 
-        .photo-frame:nth-child(1) { animation-delay: 2.0s; }
-        .photo-frame:nth-child(2) { animation-delay: 2.2s; }
-        .photo-frame:nth-child(3) { animation-delay: 2.4s; }
-        .photo-frame:nth-child(4) { animation-delay: 2.6s; }
-        .photo-frame:nth-child(5) { animation-delay: 2.8s; }
+        /* Độ trễ (delay) xuất hiện lần lượt từng tấm ảnh sau khi mở thư */
+        .envelope-container.open + .main-content-wrapper .photo-frame:nth-child(1) { animation-delay: 2.0s; }
+        .envelope-container.open + .main-content-wrapper .photo-frame:nth-child(2) { animation-delay: 2.3s; }
+        .envelope-container.open + .main-content-wrapper .photo-frame:nth-child(3) { animation-delay: 2.6s; }
+        .envelope-container.open + .main-content-wrapper .photo-frame:nth-child(4) { animation-delay: 2.9s; }
+        .envelope-container.open + .main-content-wrapper .photo-frame:nth-child(5) { animation-delay: 3.2s; }
 
         .photo-frame:hover {
             transform: scale(1.08) translateY(-6px);
@@ -210,12 +302,12 @@
         /* RESPONSIVE: Tự động tối ưu giao diện trên Màn hình Điện thoại (dưới 768px) */
         @media (max-width: 768px) {
             .gallery {
-                flex-wrap: wrap; /* Cho phép tự động xuống dòng */
+                flex-wrap: wrap;
                 gap: 10px;
             }
 
             .photo-frame {
-                width: calc(50% - 10px); /* Tự căn chỉnh 2 ảnh trên một hàng */
+                width: calc(50% - 10px);
                 height: 110px;
             }
 
@@ -228,10 +320,6 @@
                 font-size: 42px;
             }
 
-            .sub-title {
-                font-size: 30px;
-            }
-
             p.message {
                 font-size: 14px;
             }
@@ -240,41 +328,92 @@
 </head>
 <body>
 
-    <!-- Thiệp Hình Chữ Nhật Ngang Giấy Ngả Vàng Viền Lượn Sóng -->
-    <div class="card">
-        <div class="card-content">
-            <div class="heart">💖</div>
-            <h1>Happy Women's Day 20/10</h1>
-            <p class="message">
-                Nhân dịp Ngày phụ nữ Việt Nam... thực ra đây vốn chẳng cần là ngày tôn vinh người phụ nữ, bởi vì phụ nữ xứng đáng được trân trọng, yêu thương và thấu hiểu trong từng khoảnh khắc của cuộc đời bởi những đóng góp cho xã hội và sự hy sinh của họ. Và nhân dịp 20/10 năm nay, anh em btao sẽ không chúc những điều sáo rỗng (xinh đẹp, thành công, nhiều tiền, học giỏi, “không vướng vòng lao lý” - câu này của Dương Hoàng) mà chỉ có 1 câu thôi: <br>
-               <em> “Muốn nói gì thì hãy nói, muốn làm gì thì cứ làm, hãy sống tốt mỗi ngày. Bởi vì nếu có một ngày vận mệnh không chiều lòng chúng ta, nó sẽ không cho chúng ta dù chỉ một khắc để lựa chọn” </em> <br>
-		Cảm ơn <strong>Thuỳ Dương, Bảo Ngân, Ngọc Mai, Ngọc Anh</strong> vì đã luôn là những người bạn đáng quý của anh em btao. Mong rằng chúng ta sẽ có thể đồng hành cùng nhau lâu hơn nữa ... 💐💐💐
-            </p>
-        </div>
+    <!-- PHONG BÌ THƯ BAN ĐẦU -->
+    <div class="envelope-container" id="envelope" onclick="openEnvelope()">
+        <div class="envelope-flap" id="flap"></div>
+        <div class="envelope-body"></div>
+        <div class="envelope-seal">💌</div>
+        <div class="envelope-instruction">Chạm để mở thư nhé! ✨</div>
     </div>
 
+    <!-- NỘI DUNG CHÍNH (THIỆP & ẢNH) HIỆN RA SAU KHI BẤM MỞ THƯ -->
+    <div class="main-content-wrapper" id="mainContent">
+        <!-- Thiệp Hình Chữ Nhật Ngang Giấy Ngả Vàng Viền Lượn Sóng -->
+        <div class="card">
+            <div class="card-content">
+                <div class="heart">💖</div>
+                <h1>Happy Women's Day 20/10</h1>
+                <p class="message">
+                    Nhân dịp Ngày phụ nữ Việt Nam... thực ra đây vốn chẳng cần là ngày tôn vinh người phụ nữ, bởi vì phụ nữ xứng đáng được trân trọng, yêu thương và thấu hiểu trong từng khoảnh khắc của cuộc đời bởi những đóng góp cho xã hội và sự hy sinh của họ. Và nhân dịp 20/10 năm nay, anh em btao sẽ không chúc những điều sáo rỗng (xinh đẹp, thành công, nhiều tiền, học giỏi, “không vướng vòng lao lý” - câu này của Dương Hoàng) mà chỉ có 1 câu thôi: <br>
+                    <em> “Muốn nói gì thì hãy nói, muốn làm gì thì cứ làm, hãy sống tốt mỗi ngày. Bởi vì nếu có một ngày vận mệnh không chiều lòng chúng ta, nó sẽ không cho chúng ta dù chỉ một khắc để lựa chọn” </em> <br>
+                    Cảm ơn <strong>Thuỳ Dương, Bảo Ngân, Ngọc Mai, Ngọc Anh</strong> vì đã luôn là những người bạn đáng quý của anh em btao. Mong rằng chúng ta sẽ có thể đồng hành cùng nhau lâu hơn nữa ... 💐💐💐
+                </p>
+            </div>
+        </div>
 
-    <!-- Bộ sưu tập 5 Ảnh -->
-    <div class="gallery">
-        <div class="photo-frame">
-            <img src="anhnhom1.jpg" alt="Ảnh 1">
-        </div>
-        <div class="photo-frame">
-            <img src="anhnhom2.jpg" alt="Ảnh 2">
-        </div>
-        <div class="photo-frame">
-            <img src="anhnhom3.jpg" alt="Ảnh 3">
-        </div>
-        <div class="photo-frame">
-            <img src="anhnhom4.jpg" alt="Ảnh 4">
-        </div>
-        <div class="photo-frame">
-            <img src="anhnhom5.jpg" alt="Ảnh 5">
+        <!-- Bộ sưu tập 5 Ảnh Hiện Lần Lượt -->
+        <div class="gallery">
+            <div class="photo-frame">
+                <img src="anhnhom1.jpg" alt="Ảnh 1">
+            </div>
+            <div class="photo-frame">
+                <img src="anhnhom2.jpg" alt="Ảnh 2">
+            </div>
+            <div class="photo-frame">
+                <img src="anhnhom3.jpg" alt="Ảnh 3">
+            </div>
+            <div class="photo-frame">
+                <img src="anhnhom4.jpg" alt="Ảnh 4">
+            </div>
+            <div class="photo-frame">
+                <img src="anhnhom5.jpg" alt="Ảnh 5">
+            </div>
         </div>
     </div>
 
     <script>
-        // --- 1. Tạo hiệu ứng hoa rơi ---
+        // --- 1. Hiệu ứng Mở Bao Thư ---
+        function openEnvelope() {
+            const envelope = document.getElementById('envelope');
+            const flap = document.getElementById('flap');
+            
+            // Xoay nắp phong bì mở ra
+            flap.style.transform = 'rotateX(180deg)';
+            
+            // Sau 0.4s thì ẩn phong bì và cho tấm thiệp cùng bộ ảnh xuất hiện
+            setTimeout(() => {
+                envelope.classList.add('open');
+            }, 400);
+
+            // Bắn pháo hoa chào mừng ngay khi mở phong bì
+            setTimeout(() => {
+                var duration = 2.5 * 1000;
+                var end = Date.now() + duration;
+
+                (function frame() {
+                    confetti({
+                        particleCount: 6,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 },
+                        colors: ['#ff4081', '#ffd54f', '#ffffff']
+                    });
+                    confetti({
+                        particleCount: 6,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 },
+                        colors: ['#ff80ab', '#e1bee7', '#ffffff']
+                    });
+
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                }());
+            }, 700);
+        }
+
+        // --- 2. Tạo hiệu ứng hoa rơi ---
         const flowerIcons = ['🌸', '🌺', '🌹', '🌷', '✨', '💖'];
         
         function createFlower() {
@@ -296,33 +435,6 @@
         }
 
         setInterval(createFlower, 300);
-
-        // --- 2. Bắn pháo hoa rực rỡ khi mở trang ---
-        window.onload = function() {
-            var duration = 2.5 * 1000;
-            var end = Date.now() + duration;
-
-            (function frame() {
-                confetti({
-                    particleCount: 6,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 },
-                    colors: ['#ff4081', '#ffd54f', '#ffffff']
-                });
-                confetti({
-                    particleCount: 6,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 },
-                    colors: ['#ff80ab', '#e1bee7', '#ffffff']
-                });
-
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
-            }());
-        };
     </script>
 </body>
 </html>
